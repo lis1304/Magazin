@@ -14,7 +14,8 @@ public class Auto {
                 " FROM autobd.auto au join model mo ON au.id_model = mo.id_model " +
                 " join body bo ON au.id_body = bo.id_body " +
                 " join color co on au.id_color = co.id_color " +
-                " join transmission tr on au.id_kpp = tr.id_kpp ";
+                " join transmission tr on au.id_kpp = tr.id_kpp "+
+                " and not exists (select 1 from cart ca where ca.id_auto = au.id_auto) ";
         }
         try (Connection connection = DriverManager.getConnection(Main.URL,Main.USER,Main.PASSWORD);
              Statement statement = connection.createStatement();

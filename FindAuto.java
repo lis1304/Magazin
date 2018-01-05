@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FindAuto {
-    static  BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    //static  BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
     public static void findChoice(int choice) throws IOException {
         if (choice == 1){
@@ -43,8 +43,7 @@ public class FindAuto {
         int choiceMarka = 0;
 
         String sql = " select br.name_brend from auto au join model mo ON au.id_model = mo.id_model "+
-                     " join brend br on mo.id_brend =br.id_brend group by br.id_brend ";
-
+                     " join brend br on mo.id_brend = br.id_brend group by br.id_brend ";
 
         listMarka = connectToBase(sql);
 
@@ -56,8 +55,7 @@ public class FindAuto {
                 System.out.println((i+1)+" - "+listMarka.get(i));
             }
             System.out.println("Сделайте выбор: ");
-            choiceMarka = Integer.parseInt(bufferedReader.readLine());
-
+            choiceMarka = Integer.parseInt(Main.bufferedReader.readLine());
             sql = " SELECT " +
                     " mo.name_model,bo.type_body,co.name_color,tr.type_kpp,mo.price " +
                     " FROM autobd.auto au join model mo ON au.id_model = mo.id_model " +
@@ -65,7 +63,8 @@ public class FindAuto {
                     " join color co on au.id_color = co.id_color " +
                     " join transmission tr on au.id_kpp = tr.id_kpp "+
                     " join brend br on mo.id_brend = br.id_brend " +
-                    " where br.name_brend = '" + listMarka.get(choiceMarka-1) + "'";
+                    " where br.name_brend = '" + listMarka.get(choiceMarka-1) + "'"+
+                    " and not exists (select 1 from cart ca where ca.id_auto = au.id_auto) ";
             Auto.printAuto(sql);
         }
         else{
@@ -90,7 +89,7 @@ public class FindAuto {
                 System.out.println((i+1)+" - "+listModel.get(i));
             }
             System.out.println("Сделайте выбор: ");
-            choiceModel = Integer.parseInt(bufferedReader.readLine());
+            choiceModel = Integer.parseInt(Main.bufferedReader.readLine());
 
             sql = " SELECT " +
                     " mo.name_model,bo.type_body,co.name_color,tr.type_kpp,mo.price " +
@@ -98,7 +97,8 @@ public class FindAuto {
                     " join body bo ON au.id_body = bo.id_body " +
                     " join color co on au.id_color = co.id_color " +
                     " join transmission tr on au.id_kpp = tr.id_kpp "+
-                    " where mo.name_model = '" + listModel.get(choiceModel-1) + "'";
+                    " where mo.name_model = '" + listModel.get(choiceModel-1) + "'"+
+                    " and not exists (select 1 from cart ca where ca.id_auto = au.id_auto) ";
             Auto.printAuto(sql);
         }
         else{
@@ -121,7 +121,7 @@ public class FindAuto {
                 System.out.println((i+1)+" - "+listColor.get(i));
             }
             System.out.println("Сделайте выбор: ");
-            choiceColor = Integer.parseInt(bufferedReader.readLine());
+            choiceColor = Integer.parseInt(Main.bufferedReader.readLine());
 
             sql = " SELECT " +
                     " mo.name_model,bo.type_body,co.name_color,tr.type_kpp,mo.price " +
@@ -129,7 +129,8 @@ public class FindAuto {
                     " join body bo ON au.id_body = bo.id_body " +
                     " join color co on au.id_color = co.id_color " +
                     " join transmission tr on au.id_kpp = tr.id_kpp "+
-                    " where co.name_color = '" + listColor.get(choiceColor-1) + "'";
+                    " where co.name_color = '" + listColor.get(choiceColor-1) + "'"+
+                    " and not exists (select 1 from cart ca where ca.id_auto = au.id_auto) ";
             Auto.printAuto(sql);
         }
         else{
@@ -152,7 +153,7 @@ public class FindAuto {
                 System.out.println((i+1)+" - "+listKpp.get(i));
             }
             System.out.println("Сделайте выбор: ");
-            choiceKpp = Integer.parseInt(bufferedReader.readLine());
+            choiceKpp = Integer.parseInt(Main.bufferedReader.readLine());
 
             sql = " SELECT " +
                     " mo.name_model,bo.type_body,co.name_color,tr.type_kpp,mo.price " +
@@ -160,7 +161,8 @@ public class FindAuto {
                     " join body bo ON au.id_body = bo.id_body " +
                     " join color co on au.id_color = co.id_color " +
                     " join transmission tr on au.id_kpp = tr.id_kpp "+
-                    " where tr.type_kpp = '" + listKpp.get(choiceKpp-1) + "'";
+                    " where tr.type_kpp = '" + listKpp.get(choiceKpp-1) + "'"+
+                    " and not exists (select 1 from cart ca where ca.id_auto = au.id_auto) ";
             Auto.printAuto(sql);
         }
         else{
