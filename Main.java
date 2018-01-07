@@ -15,41 +15,43 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         //BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(System.in));
+        boolean flagMenu = true;
         int choice=0;
-
         System.out.println("Добро пожаловать в интернет магазин автомобилей ВАЗ и РЕНО");
-        System.out.println("1 - Показать список товаров");
-        System.out.println("2 - Поиск товара");
-        System.out.println("3 - Добавить товар в корзину");
-        System.out.println("4 - Корзина");
-        System.out.println("5 - Очистить корзину");
+        while (flagMenu) {
 
-        System.out.print("Выберите действие_");
+            System.out.println("1 - Показать список товаров");
+            System.out.println("2 - Поиск товара");
+            System.out.println("3 - Добавить товар в корзину");
+            System.out.println("4 - Корзина");
+            System.out.println("5 - Очистить корзину");
+            System.out.println("0 - Выход");
 
-        choice = Integer.parseInt(bufferedReader.readLine());
+            System.out.print("Выберите действие_");
 
-        if (choice == 1){
-            Auto.printAuto(null);
-        }
-        else if (choice == 2){
-            System.out.println("Искать по ");
-            System.out.println("   1 - Марка");
-            System.out.println("   2 - Модель");
-            System.out.println("   3 - Цвет");
-            System.out.println("   4 - Тип трансмиссии");
-            System.out.println("   Сделайте выбор_");
-            int findChoice = Integer.parseInt(bufferedReader.readLine());
-            FindAuto.findChoice(findChoice);
-        } else if (choice == 3){
-            Cart.addToCart();
-        }
-        else if (choice == 4){
-            Cart.showCart();
-        }
-        else if (choice == 5){
-            Cart.clearCart();
-        }
+            choice = Integer.parseInt(bufferedReader.readLine());
 
+            if (choice == 1) {
+                Auto.printAuto(null);
+            } else if (choice == 2) {
+                System.out.println("Искать по ");
+                System.out.println("   1 - Марка");
+                System.out.println("   2 - Модель");
+                System.out.println("   3 - Цвет");
+                System.out.println("   4 - Тип трансмиссии");
+                System.out.println("   Сделайте выбор_");
+                int findChoice = Integer.parseInt(bufferedReader.readLine());
+                FindAuto.findChoice(findChoice);
+            } else if (choice == 3) {
+                Cart.addToCart();
+            } else if (choice == 4) {
+                Cart.showCart();
+            } else if (choice == 5) {
+                Cart.clearCart();
+            } else {
+                flagMenu=false;
+            }
+        }
 
     }
 }
